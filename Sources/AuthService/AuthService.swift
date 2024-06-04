@@ -194,8 +194,7 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: { [weak self] (response: ResultResponse<EmptyDecodable>) in
-                guard let self else { return }
+            success: { (response: ResultResponse<EmptyDecodable>) in
                 // TODO: Handle error correctly
                 success()
             },
