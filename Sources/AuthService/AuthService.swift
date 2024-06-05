@@ -1,6 +1,7 @@
 import Foundation
 import Alamofire
 import NetworkService
+import Services
 import Extensions
 
 public class AuthService {
