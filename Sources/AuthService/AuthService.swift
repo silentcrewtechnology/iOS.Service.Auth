@@ -161,7 +161,7 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: { [weak self] (response: ResultResponse<CreateSessionResponse>) in
+            success: { [weak self] ( response: ResultResponse<CreateSessionResponse>) in
                 guard let self else { return }
                 guard let model = response.result else {
                     // TODO: Handle error correctly
@@ -233,7 +233,7 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: { [weak self] (response: EmptyDecodable) in
+            success: { [weak self] ( response: EmptyDecodable) in
                 // TODO: Handle error correctly
                 guard let self else { return }
                 storageService.logout()
