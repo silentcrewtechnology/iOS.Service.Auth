@@ -65,7 +65,7 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: {(response: ResultResponse<AuthInitResponse>) in
+            success: {( response: ResultResponse<AuthInitResponse>) in
                 guard let model = response.result else {
                     // TODO: Handle error correctly
                     failure(NSError.somethingWentWrong)
