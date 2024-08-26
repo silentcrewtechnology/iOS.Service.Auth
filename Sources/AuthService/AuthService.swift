@@ -10,7 +10,6 @@ public class AuthService {
     public let storageService: AppStorageService
     
     private var headers: HTTPHeaders = []
-    private var akbarsLoginOperationId: String?
     
     public init(
         networkService: NetworkServiceProtocol,
@@ -38,14 +37,12 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: { [weak self] (response: ResultResponse<AuthInitResponse>) in
-                guard let self else { return }
+            success: { (response: ResultResponse<AuthInitResponse>) in
                 guard let model = response.result else {
                     // TODO: Handle error correctly
                     failure(NSError.somethingWentWrong)
                     return
                 }
-                akbarsLoginOperationId = model.akbarsLoginOperationId
                 success(model)
             },
             failure: failure
@@ -68,14 +65,12 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: { [weak self] (response: ResultResponse<AuthInitResponse>) in
-                guard let self else { return }
+            success: {( response: ResultResponse<AuthInitResponse>) in
                 guard let model = response.result else {
                     // TODO: Handle error correctly
                     failure(NSError.somethingWentWrong)
                     return
                 }
-                akbarsLoginOperationId = model.akbarsLoginOperationId
                 success(model)
             },
             failure: failure
@@ -98,36 +93,7 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: { [weak self] (response: ResultResponse<AuthInitResponse>) in
-                guard let self else { return }
-                guard let model = response.result else {
-                    // TODO: Handle error correctly
-                    failure(NSError.somethingWentWrong)
-                    return
-                }
-                akbarsLoginOperationId = model.akbarsLoginOperationId
-                success(model)
-            },
-            failure: failure
-        )
-    }
-    
-    @discardableResult
-    public func requestOtp(
-        success: @escaping (AuthRequestOtpResponse) -> Void,
-        failure: @escaping (Error) -> Void
-    ) -> DataRequest {
-        let parameters: [String: Any] = [
-            "AkbarsOnlineLoginOperationId": akbarsLoginOperationId as Any
-        ]
-        return networkService.request(
-            endpoint: "AkbarsOnlineAuth/SendOtp",
-            method: .post,
-            parameters: parameters,
-            encoder: JSONEncoding.default,
-            headers: headers,
-            progress: nil,
-            success: { (response: ResultResponse<AuthRequestOtpResponse>) in
+            success: { (response: ResultResponse<AuthInitResponse>) in
                 guard let model = response.result else {
                     // TODO: Handle error correctly
                     failure(NSError.somethingWentWrong)
@@ -138,42 +104,6 @@ public class AuthService {
             failure: failure
         )
     }
-    
-    @discardableResult
-    public func confirmOtp(
-        otp: String?,
-        success: @escaping (ConfirmOtpResponse) -> Void,
-        failure: @escaping (Error) -> Void
-    ) -> DataRequest {
-        let parameters: [String: Any] = [
-            "AkbarsOnlineLoginOperationId": akbarsLoginOperationId as Any,
-            "DeviceToken": storageService.deviceToken as Any,
-            "OtpCode": otp as Any
-        ]
-        return networkService.request(
-            endpoint: "AkbarsOnlineAuth/LoginConfirm",
-            method: .post,
-            parameters: parameters,
-            encoder: JSONEncoding.default,
-            headers: headers,
-            progress: nil,
-            success: { [weak self] (response: ResultResponse<ConfirmOtpResponse>) in
-                guard let self else { return }
-                guard let model = response.result else {
-                    // TODO: Handle error correctly
-                    failure(NSError.somethingWentWrong)
-                    return
-                }
-                storageService.refreshToken = model.refreshToken
-                storageService.sessionToken = model.session
-                storageService.bearerToken = model.identityAccessToken
-                success(model)
-                
-            },
-            failure: failure
-        )
-    }
-    
     @discardableResult
     public func sendPin(
         pin: String,
@@ -203,7 +133,7 @@ public class AuthService {
             failure: failure
         )
     }
-    
+
     /// Метод получения `SessionToken`/`RefreshToken`
     /// при наличии старого `RefreshToken` и `Pin`
     @discardableResult
@@ -231,7 +161,7 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: { [weak self] (response: ResultResponse<CreateSessionResponse>) in
+            success: { [weak self] ( response: ResultResponse<CreateSessionResponse>) in
                 guard let self else { return }
                 guard let model = response.result else {
                     // TODO: Handle error correctly
@@ -303,7 +233,7 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: { [weak self] (response: EmptyDecodable) in
+            success: { [weak self] ( response: EmptyDecodable) in
                 // TODO: Handle error correctly
                 guard let self else { return }
                 storageService.logout()
