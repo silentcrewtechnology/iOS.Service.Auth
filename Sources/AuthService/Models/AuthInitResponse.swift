@@ -5,7 +5,7 @@ public struct AuthInitResponse: Decodable {
     public var needOtp: Bool? = true
     public var hasPhone: Bool? = false
     public var needChangePassword: Bool? = false
-    public var akbarsLoginOperationId: String?
+    public var abbLoginOperationId: String?
     
     public init() { }
     
@@ -13,6 +13,6 @@ public struct AuthInitResponse: Decodable {
         case needOtp = "NeedOtp"
         case hasPhone = "HasPhone"
         case needChangePassword = "NeedChangePassword"
-        case akbarsLoginOperationId = "AkbarsLoginOperationId"
+        case abbLoginOperationId = "AkbarsLoginOperationId"
     }
 }
