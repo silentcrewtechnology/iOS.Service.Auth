@@ -65,7 +65,7 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: {( response: ResultResponse<AuthInitResponse>) in
+            success: { (response: ResultResponse<AuthInitResponse>) in
                 guard let model = response.result else {
                     // TODO: Handle error correctly
                     failure(NSError.somethingWentWrong)
@@ -146,7 +146,6 @@ public class AuthService {
         let parameters: [String: Any] = [
             "RefreshToken": storageService.refreshToken as Any,
             "Pin": hashedPin,
-            "123": ["123": "123"],
             "DeviceToken": storageService.deviceToken as Any
             // TODO: "GeoLocation": ["latitude": 0, "longitude": 0]
         ]
@@ -161,7 +160,7 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: { [weak self] ( response: ResultResponse<CreateSessionResponse>) in
+            success: { [weak self] (response: ResultResponse<CreateSessionResponse>) in
                 guard let self else { return }
                 guard let model = response.result else {
                     // TODO: Handle error correctly
@@ -233,7 +232,7 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: { [weak self] ( response: EmptyDecodable) in
+            success: { [weak self] (response: EmptyDecodable) in
                 // TODO: Handle error correctly
                 guard let self else { return }
                 storageService.logout()
