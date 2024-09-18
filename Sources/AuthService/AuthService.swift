@@ -114,8 +114,6 @@ public class AuthService {
         ]
         storageService.pin = hashedPin
         
-        struct EmptyDecodable: Decodable { }
-        
         return networkService.request(
             endpoint: "auth/setPin",
             method: .post,
@@ -216,8 +214,6 @@ public class AuthService {
         if let sessionToken = storageService.sessionToken {
             headers.add(name: "SessionToken", value: sessionToken)
         }
-        
-        struct EmptyDecodable: Decodable { }
         
         return networkService.request(
             endpoint: "auth/logout",
