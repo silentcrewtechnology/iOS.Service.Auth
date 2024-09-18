@@ -6,13 +6,13 @@ import Extensions
 
 public class AuthService {
     
-    private let networkService: NetworkServiceProtocol
+    private let networkService: NetworkService
     public let storageService: AppStorageService
     
     private var headers: HTTPHeaders = []
     
     public init(
-        networkService: NetworkServiceProtocol,
+        networkService: NetworkService,
         storageService: AppStorageService
     ) {
         self.networkService = networkService
@@ -36,7 +36,6 @@ public class AuthService {
             parameters: parameters,
             encoder: JSONEncoding.default,
             headers: headers,
-            progress: nil,
             success: { (response: ResultResponse<AuthInitResponse>) in
                 guard let model = response.result else {
                     // TODO: Handle error correctly
@@ -64,7 +63,6 @@ public class AuthService {
             parameters: parameters,
             encoder: JSONEncoding.default,
             headers: headers,
-            progress: nil,
             success: { (response: ResultResponse<AuthInitResponse>) in
                 guard let model = response.result else {
                     // TODO: Handle error correctly
@@ -92,7 +90,6 @@ public class AuthService {
             parameters: parameters,
             encoder: JSONEncoding.default,
             headers: headers,
-            progress: nil,
             success: { (response: ResultResponse<AuthInitResponse>) in
                 guard let model = response.result else {
                     // TODO: Handle error correctly
@@ -117,8 +114,6 @@ public class AuthService {
         ]
         storageService.pin = hashedPin
         
-        struct EmptyDecodable: Decodable { }
-        
         return networkService.request(
             endpoint: "auth/setPin",
             method: .post,
@@ -126,7 +121,7 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: { (response: ResultResponse<EmptyDecodable>) in
+            success: { (response: ResultResponse<Empty>) in
                 // TODO: Handle error correctly
                 success()
             },
@@ -159,7 +154,6 @@ public class AuthService {
             parameters: parameters,
             encoder: JSONEncoding.default,
             headers: headers,
-            progress: nil,
             success: { [weak self] (response: ResultResponse<CreateSessionResponse>) in
                 guard let self else { return }
                 guard let model = response.result else {
@@ -194,10 +188,8 @@ public class AuthService {
         return networkService.request(
             endpoint: "api/identity/loginpassword/status",
             method: .get,
-            parameters: nil,
             encoder: URLEncoding.httpBody,
             headers: headers,
-            progress: nil,
             success: { (response: ResultResponse<LoginPasswordStatusResponse>) in
                 guard let model = response.result else {
                     // TODO: Handle error correctly
@@ -223,8 +215,6 @@ public class AuthService {
             headers.add(name: "SessionToken", value: sessionToken)
         }
         
-        struct EmptyDecodable: Decodable { }
-        
         return networkService.request(
             endpoint: "auth/logout",
             method: .post,
@@ -232,7 +222,7 @@ public class AuthService {
             encoder: JSONEncoding.default,
             headers: headers,
             progress: nil,
-            success: { [weak self] (response: EmptyDecodable) in
+            success: { [weak self] (response: Empty) in
                 // TODO: Handle error correctly
                 guard let self else { return }
                 storageService.logout()
