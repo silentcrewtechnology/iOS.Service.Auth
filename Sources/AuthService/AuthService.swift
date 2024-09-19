@@ -112,17 +112,15 @@ public class AuthService {
             "Pin": hashedPin,
             "RefreshToken": storageService.refreshToken as Any
         ]
-        storageService.pin = hashedPin
-        
         return networkService.request(
             endpoint: "auth/setPin",
             method: .post,
             parameters: parameters,
             encoder: JSONEncoding.default,
             headers: headers,
-            progress: nil,
-            success: { (response: ResultResponse<Empty>) in
-                // TODO: Handle error correctly
+            success: { [weak self] (response: ResultResponse<Empty>) in
+                guard let self else { return }
+                storageService.pin = hashedPin
                 success()
             },
             failure: failure
@@ -221,7 +219,6 @@ public class AuthService {
             parameters: parameters,
             encoder: JSONEncoding.default,
             headers: headers,
-            progress: nil,
             success: { [weak self] (response: Empty) in
                 // TODO: Handle error correctly
                 guard let self else { return }
