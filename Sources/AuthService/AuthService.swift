@@ -31,7 +31,14 @@ public class AuthService {
             "password": password.sha1Base64,
             "applicationType": 1]
         return networkService.request(
-            endpoint: "AkbarsOnlineAuth/LoginInit",
+            endpoint: {
+                #if DEBUG
+                "AkbarsOnlineAuth/LoginInit"
+                #else
+                "AXXarsOnlineAuth/LoginInit"
+                    .replacingOccurrences(of: "XX", with: "kb")
+                #endif
+            }(),
             method: .post,
             parameters: parameters,
             encoder: JSONEncoding.default,
@@ -58,7 +65,14 @@ public class AuthService {
             "cardNumber": cardNumber
         ]
         return networkService.request(
-            endpoint: "AkbarsOnlineAuth/LoginInitByCard",
+            endpoint: {
+                #if DEBUG
+                "AkbarsOnlineAuth/LoginInitByCard"
+                #else
+                "AXXarsOnlineAuth/LoginInitByCard"
+                    .replacingOccurrences(of: "XX", with: "kb")
+                #endif
+            }(),
             method: .post,
             parameters: parameters,
             encoder: JSONEncoding.default,
@@ -85,7 +99,14 @@ public class AuthService {
             "accountNumber": accountNumber
         ]
         return networkService.request(
-            endpoint: "AkbarsOnlineAuth/LoginInitByAccount",
+            endpoint: {
+                #if DEBUG
+                "AkbarsOnlineAuth/LoginInitByAccount"
+                #else
+                "AXXarsOnlineAuth/LoginInitByAccount"
+                    .replacingOccurrences(of: "XX", with: "kb")
+                #endif
+            }(),
             method: .post,
             parameters: parameters,
             encoder: JSONEncoding.default,
