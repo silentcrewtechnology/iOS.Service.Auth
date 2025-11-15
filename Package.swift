@@ -18,8 +18,8 @@ let package = Package(
         .target(
             name: "AuthService",
             dependencies: [
-                .product(name: "Extensions", package: "ios-extensions"),
-                .product(name: "Services", package: "ios-services"),
+                .product(name: "Extensions", package: "iOS.Extensions"),
+                .product(name: "Services", package: "iOS.Services"),
             ]
         )
     ]
