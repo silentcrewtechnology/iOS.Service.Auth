@@ -11,8 +11,8 @@ let package = Package(
             targets: ["AuthService"]),
     ],
     dependencies: [
-        .package(url: "https://gitlab.akbars.tech/abo/ios-extensions.git", .upToNextMajor(from: "0.1.0")),
-        .package(url: "https://gitlab.akbars.tech/abo/ios-services.git", .upToNextMajor(from: "0.3.0")),
+        .package(url: "https://github.com/silentcrewtechnology/iOS.Extensions.git", .upToNextMajor(from: "1.0.0")),
+        .package(url: "https://github.com/silentcrewtechnology/iOS.Services.git", .upToNextMajor(from: "1.0.0")),
     ],
     targets: [
         .target(
