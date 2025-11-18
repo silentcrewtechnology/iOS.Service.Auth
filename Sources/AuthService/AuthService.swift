@@ -33,10 +33,9 @@ public class AuthService {
         return networkService.request(
             endpoint: {
                 #if DEBUG
-                "AkbarsOnlineAuth/LoginInit"
+                "OnlineAuth/LoginInit"
                 #else
-                "AXXarsOnlineAuth/LoginInit"
-                    .replacingOccurrences(of: "XX", with: "kb")
+                "OnlineAuth/LoginInit"
                 #endif
             }(),
             method: .post,
@@ -67,7 +66,7 @@ public class AuthService {
         return networkService.request(
             endpoint: {
                 #if DEBUG
-                "AkbarsOnlineAuth/LoginInitByCard"
+                "OnlineAuth/LoginInitByCard"
                 #else
                 "AXXarsOnlineAuth/LoginInitByCard"
                     .replacingOccurrences(of: "XX", with: "kb")
@@ -101,7 +100,7 @@ public class AuthService {
         return networkService.request(
             endpoint: {
                 #if DEBUG
-                "AkbarsOnlineAuth/LoginInitByAccount"
+                "OnlineAuth/LoginInitByAccount"
                 #else
                 "AXXarsOnlineAuth/LoginInitByAccount"
                     .replacingOccurrences(of: "XX", with: "kb")

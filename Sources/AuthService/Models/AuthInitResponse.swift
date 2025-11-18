@@ -14,7 +14,7 @@ public struct AuthInitResponse: Decodable {
         case needOtp = "NeedOtp"
         case hasPhone = "HasPhone"
         case needChangePassword = "NeedChangePassword"
-        case abbLoginOperationId = "AkbarsLoginOperationId"
+        case abbLoginOperationId = "LoginOperationId"
     }
     #else
     private struct RedactedCodingKeys: CodingKey {
@@ -28,7 +28,7 @@ public struct AuthInitResponse: Decodable {
         static let hasPhone = Self.init(stringValue: "HasPhone")
         static let needChangePassword = Self.init(stringValue: "NeedChangePassword")
         static let abbLoginOperationId = Self.init(
-            stringValue: "AXXarsLoginOperationId".replacingOccurrences(of: "XX", with: "kb")
+            stringValue: "LoginOperationId"
         )
     }
     
